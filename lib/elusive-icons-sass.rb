@@ -2,6 +2,8 @@ module ElusiveIcons
   module Sass
     class << self
       def load!
+        register_compass_extension if compass?
+
         if rails?
           register_rails_engine
         elsif sprockets?
@@ -32,6 +34,10 @@ module ElusiveIcons
         defined?(::Sprockets)
       end
 
+      def compass?
+        defined?(::Compass::Frameworks)
+      end
+
       def rails?
         defined?(::Rails)
       end
@@ -42,6 +48,18 @@ module ElusiveIcons
         require 'sass'
 
         ::Sass.load_paths << stylesheets_path
+      end
+
+      def register_compass_extension
+        require 'font_awesome/sass/version'
+
+        ::Compass::Frameworks.register(
+          'elusive-icons',
+          :version               => ElusiveIcons::Sass::VERSION,
+          :path                  => gem_path,
+          :stylesheets_directory => stylesheets_path,
+          :templates_directory   => File.join(gem_path, 'templates')
+        )
       end
 
       def register_rails_engine
@@ -58,4 +76,4 @@ module ElusiveIcons
   end
 end
 
-FontAwesome::Sass.load!
+ElusiveIcons::Sass.load!
