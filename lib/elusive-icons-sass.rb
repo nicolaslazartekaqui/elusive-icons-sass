@@ -65,7 +65,6 @@ module ElusiveIcons
       def register_rails_engine
         require 'sass-rails'
         require 'elusive_icons/sass/rails/engine'
-        require 'elusive_icons/sass/rails/railtie'
       end
 
       def register_sprockets
