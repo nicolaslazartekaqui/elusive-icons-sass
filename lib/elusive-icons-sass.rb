@@ -1,5 +1,5 @@
 module ElusiveIcons
-  module sass
+  module Sass
     class << self
       def load!
         if rails?
